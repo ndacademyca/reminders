@@ -91,7 +91,7 @@ def process_reminders():
             continue
 
         body = f"""
-        <p>Dear {name},</p>
+        <p>Dear {Customer},</p>
         <p>{message}</p>
         <p><b>Class Date: </b>{row['Reminder_Date']}
         <br><b>Course: </b>{row['Course']}
@@ -110,4 +110,5 @@ def process_reminders():
 # ---------------- MAIN ENTRY POINT -----------------
 if __name__ == "__main__":
     process_reminders()
+
 
