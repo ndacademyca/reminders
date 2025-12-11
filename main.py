@@ -12,7 +12,7 @@ from google.oauth2.service_account import Credentials
 from datetime import datetime
 
 # ---------------- GOOGLE SHEET CONFIG -----------------
-SPREADSHEET_ID = "1JeEoostLt3Xb4Y64pAgl05tMHHCzPOCT"
+SPREADSHEET_ID = "1-gAUMbVOio3mTzfDstqjpnQdibP2oYjuF-vhX5UovCw"
 RANGE_NAME = "Time_Table"
 
 # ---------------- EMAIL CONFIG (Gmail) -----------------
@@ -118,4 +118,5 @@ def process_reminders():
 # ---------------- MAIN ENTRY POINT -----------------
 if __name__ == "__main__":
     process_reminders()
+
 
