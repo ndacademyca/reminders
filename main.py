@@ -108,6 +108,51 @@ def send_email(to_email, teacher_email, subject, body):
         log_message(f"❌ Failed to send email to {to_email}: {e}")
 
 # ---------------- PROCESS REMINDERS -----------------
+# def process_reminders():
+#     df = read_google_sheet()
+#     if df is None:
+#         return "No data to process."
+
+#     today_str = datetime.now().strftime("%Y-%m-%d")
+#     log_message(f"Processing reminders for {today_str}")
+#     sent_count = 0
+
+#     for _, row in df.iterrows():
+#         if row["Reminder_Date"] != today_str:
+#             continue
+
+#         body = f"""
+#         <p>Dear {row['Customer']},</p>
+#         <p>{row['Message']}</p>
+#         <p><b>Class Date:</b> {row['Reminder_Date']}<br>
+#         <b>Course:</b> {row['Course']}<br>
+#         <b>Class Time:</b> {row['Session']}</p>
+#         <p><img src="https://raw.githubusercontent.com/ndacademyca/images/main/Whatsapp_notification.png"
+#                 width="650"></p>
+#         <p><b>Zoom link:</b> {row['Zoom_link']}</p>
+#         <p>Warm regards,<br><br>
+#         <img src="https://raw.githubusercontent.com/ndacademyca/images/main/NewDimensionAcademy_t.png"
+#              alt="New Dimension Academy" width="200" style="display:block; margin-top:10px;"><br>
+#         Phone: +1 437 967 5082<br>
+#         Website: <a href="https://www.ndacademy.ca">www.ndacademy.ca</a><br>
+#         Email: <a href="mailto:info@ndacademy.ca">info@ndacademy.ca</a><br><br>
+#         | At New Dimension Academy, we are Expanding Minds, Unlocking New Dimensions. |
+#         </p>
+#         """
+
+#         # send_email(row["Email"], f"Reminder for {row['Customer']}", body)
+#         # sent_count += 1
+
+#     teacher_email = row.get("Teacher_Email", "")
+#     send_email(
+#             to_email=row["Email"],
+#             teacher_email=teacher_email,
+#             subject=f"Reminder for {row['Customer']}",
+#             body=body
+
+#     log_message(f"🎉 All reminders processed. Total emails sent: {sent_count}")
+#     return f"Done — {sent_count} reminder(s) sent."
+
 def process_reminders():
     df = read_google_sheet()
     if df is None:
@@ -140,16 +185,16 @@ def process_reminders():
         </p>
         """
 
-        # send_email(row["Email"], f"Reminder for {row['Customer']}", body)
-        # sent_count += 1
-
-    teacher_email = row.get("Teacher_Email", "")
+        teacher_email = row.get("Teacher_Email", "")
 
         send_email(
             to_email=row["Email"],
             teacher_email=teacher_email,
             subject=f"Reminder for {row['Customer']}",
             body=body
+        )
+
+        sent_count += 1
 
     log_message(f"🎉 All reminders processed. Total emails sent: {sent_count}")
     return f"Done — {sent_count} reminder(s) sent."
@@ -157,6 +202,7 @@ def process_reminders():
 # ---------------- MAIN ENTRY POINT -----------------
 if __name__ == "__main__":
     process_reminders()
+
 
 
 
