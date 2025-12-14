@@ -59,23 +59,53 @@ def read_google_sheet():
         return None
 
 # ---------------- SEND EMAIL -----------------
-def send_email(recipient, subject, body):
+# def send_email(recipient, subject, body):
+#     try:
+#         msg = MIMEMultipart()
+#         # msg["From"] = EMAIL_USER
+#         msg['From'] = f"New Dimension Academy <{EMAIL_USER}>"
+#         msg["To"] = recipient
+#         msg["Subject"] = subject
+#         msg.attach(MIMEText(body, "html"))
+
+#         context = ssl.create_default_context()
+#         with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, context=context) as server:
+#             server.login(EMAIL_USER, EMAIL_PASSWORD)
+#             server.sendmail(EMAIL_USER, recipient, msg.as_string())
+
+#         log_message(f"✅ Email sent to {recipient}")
+#     except Exception as e:
+#         log_message(f"❌ Failed to send email to {recipient}: {e}")
+
+def send_email(to_email, teacher_email, subject, body):
     try:
         msg = MIMEMultipart()
-        # msg["From"] = EMAIL_USER
-        msg['From'] = f"New Dimension Academy <{EMAIL_USER}>"
-        msg["To"] = recipient
+        msg["From"] = f"New Dimension Academy <{EMAIL_USER}>"
+        msg["To"] = to_email
         msg["Subject"] = subject
         msg.attach(MIMEText(body, "html"))
+
+        # BCC recipients
+        bcc_list = ["support@ndacademy.ca"]
+
+        # Add teacher email to BCC if exists
+        if teacher_email and str(teacher_email).strip():
+            bcc_list.append(teacher_email)
+
+        # Final recipient list (To + BCC)
+        recipients = [to_email] + bcc_list
 
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL(SMTP_SERVER, SMTP_PORT, context=context) as server:
             server.login(EMAIL_USER, EMAIL_PASSWORD)
-            server.sendmail(EMAIL_USER, recipient, msg.as_string())
+            server.sendmail(EMAIL_USER, recipients, msg.as_string())
 
-        log_message(f"✅ Email sent to {recipient}")
+        log_message(
+            f"Email sent → TO: {to_email} | BCC: {', '.join(bcc_list)}"
+        )
+
     except Exception as e:
-        log_message(f"❌ Failed to send email to {recipient}: {e}")
+        log_message(f"❌ Failed to send email to {to_email}: {e}")
 
 # ---------------- PROCESS REMINDERS -----------------
 def process_reminders():
@@ -119,6 +149,7 @@ def process_reminders():
 # ---------------- MAIN ENTRY POINT -----------------
 if __name__ == "__main__":
     process_reminders()
+
 
 
 
