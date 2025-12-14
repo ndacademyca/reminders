@@ -122,7 +122,7 @@ def send_email(to_email, teacher_email, subject, body):
 #             continue
 
 #         body = f"""
-#         <p>Dear {row['Customer']},</p>
+#         <p><b>Dear</b> {row['Customer']},</p>
 #         <p>{row['Message']}</p>
 #         <p><b>Class Date:</b> {row['Reminder_Date']}<br>
 #         <b>Course:</b> {row['Course']}<br>
@@ -202,6 +202,7 @@ def process_reminders():
 # ---------------- MAIN ENTRY POINT -----------------
 if __name__ == "__main__":
     process_reminders()
+
 
 
 
