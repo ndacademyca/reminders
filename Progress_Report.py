@@ -126,7 +126,6 @@ def build_email(row):
             <!-- Footer -->
             <tr><td style="padding:20px;text-align:center;font-size:13px;color:#7f8c8d">
                 Report Date: {row.get('Report_Date','')}<br>
-                Contact: {row.get('Teacher','')} – {row.get('Teacher_Email','')}
             </td></tr>
 
             <!-- Footer Image -->
